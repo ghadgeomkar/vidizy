@@ -36,7 +36,7 @@ const PlayVideo = ({ videoId }) => {
     useEffect(() => {
         fetchVideoData();
         window.scrollTo(0, 0);
-    }, [])
+    }, [videoId])
 
     useEffect(() => {
         fetchOtherData();
@@ -49,13 +49,13 @@ const PlayVideo = ({ videoId }) => {
     return (
         <div className="play-video">
             <iframe src={`https://www.youtube.com/embed/${videoId}?&autoplay=1`} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-            {/* Best YouTube Channel To Learn Web Development  */}
+
             <h3>{apiData ? apiData.snippet.title : "Title Here"}</h3>
             <div className="play-video-info">
                 <p>{apiData ? value_converter(apiData.statistics.viewCount) : 1525} Views  &bull; {apiData ? moment(apiData.snippet.publishedAt).fromNow() : "2 days ago"}</p>
                 <div>
                     <span><img src={like} alt="" />{apiData ? value_converter(apiData.statistics.likeCount) : 125}</span>
-                    <span><img src={dislike} alt="" />2</span>
+                    <span><img src={dislike} alt="" /></span>
                     <span><img src={share} alt="" />Share</span>
                     <span><img src={save} alt="" />Save</span>
                 </div>
