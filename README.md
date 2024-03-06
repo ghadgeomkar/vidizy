@@ -1,8 +1,18 @@
-# React + Vite
+# Vidizy is a YouTube Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a YouTube clone website built using React. It utilizes the YouTube API to fetch and display videos, channel information, and comments. The website features a home page with categories, a video details page, and navigation components similar to the original YouTube platform.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **categories:** Navigate through different categories using the sidebar.
+- **Video Feed:** View a list of videos based on selected categories.
+- **Recommended Videos:** Display related videos based on the currently playing video.
+- **Video Playback:** Watch videos with embedded YouTube player.
+- **Channel Information:** See details about the channel including subscribers count and logo.
+- **Comments:** Read and interact with comments below the video.
+
+## Technologies Used
+
+- React: Frontend library for building user interfaces.
+- React Router: Library for declarative routing in React applications.
+- YouTube API: Access YouTube features and data.
