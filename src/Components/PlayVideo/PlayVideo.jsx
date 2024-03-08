@@ -6,8 +6,11 @@ import share from '../../assets/share.png'
 import save from '../../assets/save.png'
 import { API_KEY, value_converter } from '../../data'
 import moment from 'moment'
+import { useParams } from 'react-router-dom'
 
-const PlayVideo = ({ videoId }) => {
+const PlayVideo = () => {
+
+    const{videoId} = useParams()
 
     const [apiData, setApiData] = useState(null);
     const [channelData, setChannelData] = useState(null);
@@ -17,13 +20,17 @@ const PlayVideo = ({ videoId }) => {
 
         // Fetching Video Data
         const videoDetails_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&key=${API_KEY}&id=${videoId}`;
-        await fetch(videoDetails_url).then(res => res.json()).then(data => setApiData(data.items[0]));
+        await fetch(videoDetails_url).then(res => res.json())
+        .then(data => {
+            fetchOtherData(data.items[0])
+            setApiData(data.items[0])
+        });
     }
 
-    const fetchOtherData = async () => {
+    const fetchOtherData = async (getdata) => {
 
         // Fetching Channel Data
-        const channelLogo_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`;
+        const channelLogo_url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${getdata.snippet.channelId}&key=${API_KEY}`;
         await fetch(channelLogo_url).then(res => res.json()).then(data => setChannelData(data.items[0]));
 
 
@@ -38,9 +45,6 @@ const PlayVideo = ({ videoId }) => {
         window.scrollTo(0, 0);
     }, [videoId])
 
-    useEffect(() => {
-        fetchOtherData();
-    }, [apiData])
 
     if(channelData === null || apiData === null ){
         return <p>Loading...</p>
@@ -64,19 +68,14 @@ const PlayVideo = ({ videoId }) => {
             <div className="publisher">
                 <img src={channelData ? value_converter(channelData.snippet.thumbnails.default.url) : ""} alt="" />
                 <div>
-                    {/* GreatStack */}
                     <p>{apiData ? apiData.snippet.channelTitle : ""}</p>
-                    {/* 500K Subscribers */}
                     <span>{channelData ? value_converter(channelData.statistics.subscriberCount) : "1M"} Subscribers</span>
                 </div>
                 <button type="button">Subscribe</button>
             </div>
             <div className="vid-description">
-                {/* Channel that makes learning Easy
-                Subscribe GreatStack to Watch More Tutorials on web development */}
                 <p>{apiData ? apiData.snippet.description.slice(0, 250) : "Description Here"}</p>
                 <hr />
-                {/* 130 Comments */}
                 <h4>{apiData ? value_converter(apiData.statistics.commentCount) : 130} Comments</h4>
 
                 {commentData.map((item, index) => {

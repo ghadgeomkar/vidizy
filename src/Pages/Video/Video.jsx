@@ -6,11 +6,11 @@ import { useParams } from "react-router-dom";
 
 const Video = () => {
 
-  const {videoId,categoryId} = useParams();
+  const {categoryId} = useParams();
 
   return (
       <div className="play-container">
-        <PlayVideo videoId={videoId} />
+        <PlayVideo />
         <Recommended categoryId={categoryId}/>
       </div>
   );
